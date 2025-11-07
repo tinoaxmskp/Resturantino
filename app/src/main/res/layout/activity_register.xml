@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 🪩 Logo -->
+    <ImageView
+        android:src="@mipmap/icon"
+        android:contentDescription="@string/app_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- ✉️ Email Input -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 🔒 Password Input -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 🔒 Confirm Password -->
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 🧾 Register Button -->
+    <Button
+        android:id="@+id/btnRegister"
+        android:text="@string/create_account"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 🔙 Already have an account -->
+    <TextView
+        android:id="@+id/tvLogin"
+        android:text="@string/already_have_an_account_login"
+        android:textSize="14sp"
+        android:textColor="#2196F3"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

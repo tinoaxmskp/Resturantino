@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "673247570662",
+    "project_id": "resturantino",
+    "storage_bucket": "resturantino.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673247570662:android:5be6e27417180a5ab36927",
+        "android_client_info": {
+          "package_name": "com.example.resturantino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673247570662-4vd7crrkj23gpqjab789vtq251i5hol4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.resturantino",
+            "certificate_hash": "d16b9bf24647738381998b438349e3ddfb3f2249"
+          }
+        },
+        {
+          "client_id": "673247570662-6ukrs6kiio94tjc9bl53bhk0ju7cs01l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9yImfb8xMu_JqS36ozEU_MMm0xIoBtiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673247570662-6ukrs6kiio94tjc9bl53bhk0ju7cs01l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
