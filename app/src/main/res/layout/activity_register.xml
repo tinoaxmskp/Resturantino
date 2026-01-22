@@ -17,33 +17,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Create Account"
+            android:text="@string/title_create_account"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
 
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:autofillHints="emailAddress"
             android:padding="12dp" />
 
         <EditText
             android:id="@+id/inputPassword"
+            android:autofillHints="password"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Password"
+            android:hint="@string/hint_password"
+
             android:inputType="textPassword"
             android:padding="12dp" />
 
         <EditText
             android:id="@+id/inputConfirmPassword"
+            android:autofillHints="password"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Confirm Password"
+            android:hint="@string/hint_confirm_password"
+
             android:inputType="textPassword"
             android:padding="12dp" />
 
@@ -51,7 +57,9 @@
             android:id="@+id/spinnerRole"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp" />
+
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -66,14 +74,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Sign Up" />
+            android:text="@string/action_sign_up"
+            />
 
         <TextView
             android:id="@+id/textLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Already have an account? Log in"
+            android:text="@string/text_login_prompt"
+
             android:textColor="@color/black" />
 
     </LinearLayout>
