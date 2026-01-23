@@ -50,9 +50,12 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
+    implementation(libs.kotlinx.coroutines.play.services)
 
-    // Add this ↓↓↓
-    implementation("androidx.cardview:cardview:1.0.0")
+
+    implementation(libs.androidx.cardview)
+    implementation(libs.androidx.recyclerview)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
