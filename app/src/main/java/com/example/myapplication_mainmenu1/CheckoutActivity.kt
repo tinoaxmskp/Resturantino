@@ -126,8 +126,15 @@ class CheckoutActivity : AppCompatActivity() {
         btnPlaceOrder.isEnabled = false
         btnPlaceOrder.text = "Processing..."
 
-        // Get current user ID (using anonymous auth or a default user)
-        val userId = getCurrentUserId()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Toast.makeText(this, "Please log in to place an order", Toast.LENGTH_LONG).show()
+            btnPlaceOrder.isEnabled = true
+            btnPlaceOrder.text = "Place Order"
+            return
+        }
+
+        val userId = currentUser.uid
 
         val items = checkoutItems.map { cartItem ->
             OrderItem(
@@ -140,6 +147,7 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         val order = Order(
+            orderId = "",
             userId = userId,
             items = items,
             totalPrice = checkoutItems.sumOf { it.price * it.quantity },
@@ -149,68 +157,26 @@ class CheckoutActivity : AppCompatActivity() {
             status = "Confirmed"
         )
 
-        // Save order to Firestore
-        try {
-            firestore.collection("orders")
-                .add(order.toMap())
-                .addOnSuccessListener { documentReference ->
-                    // Order saved successfully
-                    val orderId = documentReference.id
-                    showSuccessAnimation(orderId)
-                    // Clear cart after successful order
-                    cartViewModel.clearCart()
-                }
-                .addOnFailureListener { e ->
-                    // Handle error - Firebase might not be configured
-                    // Still show success for demo purposes, but log the error
-                    android.util.Log.e("CheckoutActivity", "Firebase error: ${e.message}")
-                    
-                    // Generate a local order ID if Firebase fails
-                    val localOrderId = "LOCAL_${System.currentTimeMillis()}"
-                    showSuccessAnimation(localOrderId)
-                    cartViewModel.clearCart()
-                    
-                    // Show warning toast
-                    Toast.makeText(
-                        this,
-                        "Order placed (not saved to cloud - Firebase not configured)",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-        } catch (e: Exception) {
-            // Handle initialization errors
-            android.util.Log.e("CheckoutActivity", "Checkout error: ${e.message}")
-            btnPlaceOrder.isEnabled = true
-            btnPlaceOrder.text = "Place Order"
-            
-            // Still allow order placement for demo
-            val localOrderId = "LOCAL_${System.currentTimeMillis()}"
-            showSuccessAnimation(localOrderId)
-            cartViewModel.clearCart()
-            
-            Toast.makeText(
-                this,
-                "Order placed locally (Firebase not configured - see FIREBASE_SETUP.md)",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+        firestore.collection("orders")
+            .add(order.toMap())
+            .addOnSuccessListener { doc ->
+                showSuccessAnimation(doc.id)
+                cartViewModel.clearCart()
+            }
+            .addOnFailureListener { e ->
+                btnPlaceOrder.isEnabled = true
+                btnPlaceOrder.text = "Place Order"
+
+                Toast.makeText(
+                    this,
+                    "Failed to place order: ${e.localizedMessage}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
     }
 
-    private fun getCurrentUserId(): String {
-        // Try to get authenticated user, otherwise use device ID or default
-        val currentUser = auth.currentUser
-        return if (currentUser != null) {
-            currentUser.uid
-        } else {
-            // Use a default user ID or create anonymous user
-            // For demo purposes, using a default ID
-            // In production, you'd want to use Firebase Auth
-            android.provider.Settings.Secure.getString(
-                contentResolver,
-                android.provider.Settings.Secure.ANDROID_ID
-            )
-        }
-    }
+
+
 
     private fun showSuccessAnimation(orderId: String) {
         cardSuccess.visibility = View.VISIBLE
