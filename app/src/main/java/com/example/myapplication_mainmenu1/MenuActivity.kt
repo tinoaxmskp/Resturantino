@@ -3,8 +3,7 @@ package com.example.myapplication_mainmenu1
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -13,6 +12,7 @@ class MenuActivity : AppCompatActivity() {
     private val cartViewModel: CartViewModel by lazy {
         (application as RecipeApp).cartViewModel
     }
+
     private lateinit var rvMenu: RecyclerView
     private lateinit var menuAdapter: MenuAdapter
     private val menuItems = mutableListOf<MenuItem>()
@@ -21,90 +21,101 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+        // Toolbar
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { finish() }
 
+        // RecyclerView
         rvMenu = findViewById(R.id.rvMenu)
         menuAdapter = MenuAdapter(menuItems) { menuItem ->
             addToCart(menuItem)
         }
 
-        rvMenu.layoutManager = LinearLayoutManager(this)
+        // GRID layout (2 columns)
+        rvMenu.layoutManager = GridLayoutManager(this, 2)
         rvMenu.adapter = menuAdapter
 
         loadMenuItems()
     }
 
+    // Static menu data (UI ONLY, temporary)
     private fun loadMenuItems() {
         menuItems.clear()
+
         menuItems.add(
             MenuItem(
                 id = "m1",
-                name = "Olive Oil",
-                description = "Extra virgin olive oil, premium quality",
-                price = 8.50,
+                name = "Classic Burger",
+                description = "Juicy beef burger with cheese and lettuce",
+                price = 42.0,   // zł
                 imageResId = android.R.drawable.ic_menu_gallery,
-                category = "Oils"
+                category = "Main"
             )
         )
+
         menuItems.add(
             MenuItem(
                 id = "m2",
-                name = "Parmesan Cheese",
-                description = "Aged Italian parmesan cheese",
-                price = 4.20,
+                name = "Pepperoni Pizza",
+                description = "Stone baked pizza with pepperoni",
+                price = 45.0,   // zł
                 imageResId = android.R.drawable.ic_menu_camera,
-                category = "Dairy"
+                category = "Main"
             )
         )
+
         menuItems.add(
             MenuItem(
                 id = "m3",
-                name = "Fresh Tomatoes",
-                description = "Organic cherry tomatoes",
-                price = 3.50,
+                name = "Grilled Chicken",
+                description = "Grilled chicken with herbs",
+                price = 48.0,   // zł
                 imageResId = android.R.drawable.ic_menu_gallery,
-                category = "Vegetables"
+                category = "Main"
             )
         )
+
         menuItems.add(
             MenuItem(
                 id = "m4",
-                name = "Whole Wheat Pasta",
-                description = "Organic whole wheat spaghetti",
-                price = 5.00,
+                name = "Pasta Carbonara",
+                description = "Creamy pasta with bacon",
+                price = 40.0,   // zł
                 imageResId = android.R.drawable.ic_menu_camera,
-                category = "Grains"
+                category = "Main"
             )
         )
+
         menuItems.add(
             MenuItem(
                 id = "m5",
-                name = "Fresh Basil",
-                description = "Organic fresh basil leaves",
-                price = 2.75,
+                name = "Chocolate Cake",
+                description = "Rich chocolate dessert",
+                price = 22.0,   // zł
                 imageResId = android.R.drawable.ic_menu_gallery,
-                category = "Herbs"
+                category = "Dessert"
             )
         )
+
         menuItems.add(
             MenuItem(
                 id = "m6",
-                name = "Garlic",
-                description = "Fresh garlic bulbs",
-                price = 1.50,
+                name = "Coffee",
+                description = "Fresh brewed coffee",
+                price = 10.0,   // zł
                 imageResId = android.R.drawable.ic_menu_camera,
-                category = "Vegetables"
+                category = "Drink"
             )
         )
+
         menuAdapter.notifyDataSetChanged()
     }
 
     private fun addToCart(menuItem: MenuItem) {
         val isNewItem = cartViewModel.addToCart(menuItem)
-        
+
         if (isNewItem) {
             Toast.makeText(
                 this,
