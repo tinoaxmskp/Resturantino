@@ -6,42 +6,34 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 
 class MenuAdapter(
     private val items: List<MenuItem>,
     private val onAddToCart: (MenuItem) -> Unit
-) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val ivMenuItem: ImageView = view.findViewById(R.id.ivMenuItem)
-        private val tvMenuItemName: TextView = view.findViewById(R.id.tvMenuItemName)
-        private val tvMenuItemDescription: TextView = view.findViewById(R.id.tvMenuItemDescription)
-        private val tvMenuItemPrice: TextView = view.findViewById(R.id.tvMenuItemPrice)
-        private val btnAddToCart: MaterialButton = view.findViewById(R.id.btnAddToCart)
-
-        fun bind(menuItem: MenuItem) {
-            ivMenuItem.setImageResource(menuItem.imageResId)
-            tvMenuItemName.text = menuItem.name
-            tvMenuItemDescription.text = menuItem.description
-            tvMenuItemPrice.text = "$$%.2f".format(menuItem.price)
-
-            btnAddToCart.setOnClickListener {
-                onAddToCart(menuItem)
-            }
-        }
+    class MenuViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val img: ImageView = view.findViewById(R.id.imgFood)
+        val name: TextView = view.findViewById(R.id.txtTitle)
+        val price: TextView = view.findViewById(R.id.txtPrice)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_menu, parent, false)
-        return ViewHolder(view)
+            .inflate(R.layout.item_food_grid, parent, false)
+        return MenuViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
+        val item = items[position]
+        holder.img.setImageResource(item.imageResId)
+        holder.name.text = item.name
+        holder.price.text = "${item.price.toInt()} zł"
+
+        holder.itemView.setOnClickListener {
+            onAddToCart(item)
+        }
     }
 
     override fun getItemCount(): Int = items.size
 }
-
