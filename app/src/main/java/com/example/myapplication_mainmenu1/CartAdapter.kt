@@ -44,7 +44,7 @@ class CartAdapter(
             }
 
             btnRemove.setOnClickListener {
-                val pos = adapterPosition
+                val pos = bindingAdapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
                     onRemove(pos)
                 }
