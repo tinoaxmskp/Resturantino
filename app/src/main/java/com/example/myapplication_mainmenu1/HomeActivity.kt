@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
+
 
 class HomeActivity : AppCompatActivity() {
-    
+
     private val cartViewModel: CartViewModel by lazy {
         (application as RecipeApp).cartViewModel
     }
@@ -27,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
         val recipesCard = findViewById<MaterialCardView>(R.id.cardRecipes)
         val cartCard = findViewById<MaterialCardView>(R.id.cardCart)
         val historyCard = findViewById<MaterialCardView>(R.id.cardHistory)
+        val btnLogout = findViewById<MaterialButton>(R.id.btnLogout)
         tvCartBadge = findViewById(R.id.tvCartBadge)
 
         // Observe cart count and update badge
@@ -49,7 +53,14 @@ class HomeActivity : AppCompatActivity() {
         historyCard.setOnClickListener {
             startActivity(Intent(this, OrderHistoryActivity::class.java))
         }
+        btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
 
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
         // Update badge on resume to reflect current cart state
         updateCartBadge(cartViewModel.getItemCount())
     }

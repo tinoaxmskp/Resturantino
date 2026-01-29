@@ -28,4 +28,8 @@
     <string name="total_items">%d items</string>
     <string name="subtotal">Subtotal</string>
     <string name="tax">Tax (8%%)</string>
+    <string name="choose_an_option_below_to_get_started">Choose an option below to get started</string>
+    <string name="welcome">Welcome!</string>
+    <string name="_0">0</string>
+    <string name="logout">Logout</string>
 </resources>
