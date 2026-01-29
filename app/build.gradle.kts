@@ -55,6 +55,8 @@ dependencies {
 
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.firebase.storage.ktx)
+
 
 
     testImplementation(libs.junit)

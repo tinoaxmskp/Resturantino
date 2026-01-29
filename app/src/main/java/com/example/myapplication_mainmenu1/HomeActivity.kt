@@ -10,6 +10,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class HomeActivity : AppCompatActivity() {
@@ -61,6 +62,11 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        FirebaseFirestore.getInstance()
+            .collection("debug")
+            .add(mapOf("time" to System.currentTimeMillis()))
+
         // Update badge on resume to reflect current cart state
         updateCartBadge(cartViewModel.getItemCount())
     }

@@ -32,4 +32,14 @@
     <string name="welcome">Welcome!</string>
     <string name="_0">0</string>
     <string name="logout">Logout</string>
+    <string name="add">Add</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_description">Item description</string>
+    <string name="_0_00">$0.00</string>
+    <string name="todo">TODO</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="you_are_signed_in_as_an_administrator">You are signed in as an administrator.</string>
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="recipe_name">Recipe Name</string>
 </resources>

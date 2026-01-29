@@ -3,7 +3,9 @@ package com.example.myapplication_mainmenu1
 import android.app.Application
 
 class RecipeApp : Application() {
-    
+
+    var isAdmin: Boolean = false
+
     // Shared ViewModel instance across activities
     val cartViewModel: CartViewModel by lazy {
         CartViewModel()

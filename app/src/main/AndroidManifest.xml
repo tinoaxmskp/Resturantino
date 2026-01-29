@@ -16,6 +16,7 @@
         android:theme="@style/Theme.MyApplication_MainMenu1">
 
         <activity android:name=".AdminDashboardActivity" />
+        <activity android:name=".AddRecipeActivity" />
         <activity android:name=".RecipeListActivity" />
         <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".CartActivity" />
