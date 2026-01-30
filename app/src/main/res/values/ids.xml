@@ -2,4 +2,7 @@
 <resources>
     <item name="btnEdit" type="id" />
     <item name="btnDelete" type="id" />
+    <item name="ivMore" type="id" />
+    <item name="ivFav" type="id" />
+    <item name="btnAdminRecipes" type="id" />
 </resources>

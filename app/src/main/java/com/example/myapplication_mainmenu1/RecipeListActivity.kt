@@ -43,29 +43,51 @@ class RecipeListActivity : AppCompatActivity() {
         loadSampleData()
     }
 
+
     private fun loadSampleData() {
-        // Sample items - replace imageResId with your drawable references or remote URLs later
         recipes.clear()
+
         recipes.add(
             Recipe(
                 id = "r1",
                 title = "Spaghetti Carbonara",
                 description = "Classic Italian pasta",
-                imageResId = android.R.drawable.ic_menu_gallery,
-                ingredients = listOf("Spaghetti", "Eggs", "Pancetta", "Parmesan", "Pepper"),
-                steps = listOf("Boil pasta", "Cook pancetta", "Mix eggs+cheese", "Combine")
+                ingredients = listOf(
+                    "Spaghetti",
+                    "Eggs",
+                    "Pancetta",
+                    "Parmesan",
+                    "Pepper"
+                ).joinToString("\n• ", prefix = "• "),
+                steps = listOf(
+                    "Boil pasta",
+                    "Cook pancetta",
+                    "Mix eggs and cheese",
+                    "Combine everything"
+                ).joinToString("\n")
             )
         )
+
         recipes.add(
             Recipe(
                 id = "r2",
                 title = "Greek Salad",
                 description = "Fresh and simple",
-                imageResId = android.R.drawable.ic_menu_camera,
-                ingredients = listOf("Tomato", "Cucumber", "Feta", "Olives", "Olive oil"),
-                steps = listOf("Chop veggies", "Mix", "Add feta and olive oil")
+                ingredients = listOf(
+                    "Tomatoes",
+                    "Cucumber",
+                    "Feta",
+                    "Olives",
+                    "Olive oil"
+                ).joinToString("\n• ", prefix = "• "),
+                steps = listOf(
+                    "Chop vegetables",
+                    "Mix together",
+                    "Add feta and olive oil"
+                ).joinToString("\n")
             )
         )
+
         adapter.notifyDataSetChanged()
     }
 }

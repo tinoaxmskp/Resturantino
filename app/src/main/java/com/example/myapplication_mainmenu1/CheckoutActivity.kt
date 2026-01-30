@@ -84,7 +84,7 @@ class CheckoutActivity : AppCompatActivity() {
         })
 
         // Observe total price
-        cartViewModel.totalPrice.observe(this, Observer { total ->
+        cartViewModel.totalPrice.observe(this, Observer { _ ->
             updateTotals()
         })
 

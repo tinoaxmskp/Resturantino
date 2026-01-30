@@ -30,8 +30,8 @@ data class Order(
     companion object {
         fun fromDocument(document: DocumentSnapshot): Order? {
             return try {
-                val items = (document.get("items") as? List<Map<String, Any>>)
-                    ?.mapNotNull { OrderItem.fromMap(it) } ?: emptyList()
+                val items = (document.get("items") as? List<*>)
+                    ?.mapNotNull { OrderItem.fromMap(it as Map<String, Any>) } ?: emptyList()
 
                 Order(
                     orderId = document.id,

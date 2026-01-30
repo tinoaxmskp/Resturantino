@@ -13,20 +13,24 @@
             android:id="@+id/etRecipeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Recipe name" />
+            android:autofillHints=""
+            android:hint="@string/recipe_name"
+        />
 
         <EditText
             android:id="@+id/etRecipeDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description"
+            android:autofillHints=""
+            android:hint="@string/recipe_description"
             android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/etRecipePrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Price"
+            android:autofillHints=""
+            android:hint="@string/price"
             android:inputType="numberDecimal"
             android:layout_marginTop="8dp" />
 
@@ -34,13 +38,15 @@
             android:id="@+id/etRecipeCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Category"
+            android:autofillHints=""
+            android:hint="@string/category"
             android:layout_marginTop="8dp" />
 
         <ImageView
-            android:id="@+id/ivImagePreview"
+            android:id="@+id/ivRecipeImage"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:contentDescription="@string/recipe_image"
             android:scaleType="centerCrop"
             android:layout_marginTop="12dp"
             android:background="#DDDDDD" />
@@ -49,14 +55,14 @@
             android:id="@+id/btnPickImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick Image"
+            android:text="@string/pick_image"
             android:layout_marginTop="8dp" />
 
         <Button
             android:id="@+id/btnSaveRecipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save Recipe"
+            android:text="@string/save_recipe"
             android:layout_marginTop="16dp" />
 
         <ProgressBar

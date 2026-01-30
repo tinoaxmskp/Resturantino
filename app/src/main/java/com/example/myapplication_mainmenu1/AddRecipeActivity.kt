@@ -1,16 +1,21 @@
 package com.example.myapplication_mainmenu1
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
-class AddRecipeActivity : AppCompatActivity() {
 
+
+class AddRecipeActivity : AppCompatActivity() {
+    private lateinit var ivRecipeImage: ImageView
     private lateinit var etName: EditText
     private lateinit var etDescription: EditText
     private lateinit var etPrice: EditText
@@ -19,11 +24,12 @@ class AddRecipeActivity : AppCompatActivity() {
     private lateinit var btnSave: Button
     private lateinit var ivPreview: ImageView
     private lateinit var progressBar: ProgressBar
+    private var imageUri: Uri? = null
+    private var selectedImageUri: Uri? = null
 
     private val firestore = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
 
-    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +41,11 @@ class AddRecipeActivity : AppCompatActivity() {
         etCategory = findViewById(R.id.etRecipeCategory)
         btnPickImage = findViewById(R.id.btnPickImage)
         btnSave = findViewById(R.id.btnSaveRecipe)
-        ivPreview = findViewById(R.id.ivImagePreview)
+        ivPreview = findViewById(R.id.ivRecipeImage)
         progressBar = findViewById(R.id.progressBar)
 
         btnPickImage.setOnClickListener {
-            pickImage()
+            imagePicker.launch("image/*")
         }
 
         btnSave.setOnClickListener {
@@ -47,20 +53,14 @@ class AddRecipeActivity : AppCompatActivity() {
         }
     }
 
-    private fun pickImage() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, 1001)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
-            imageUri = data?.data
-            ivPreview.setImageURI(imageUri)
+    private val imagePicker =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                selectedImageUri = uri
+                ivRecipeImage.setImageURI(uri)
+            }
         }
-    }
+
 
     private fun saveRecipe() {
         val name = etName.text.toString().trim()

@@ -5,10 +5,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Recipe(
-    val id: String,
-    val title: String,
-    val description: String,
-    val imageResId: Int, // for sample local images; replace with URL when using Firestore
-    val ingredients: List<String>,
-    val steps: List<String>
+    val id: String = "",
+    val title: String = "",
+    val description: String = "",
+    val price: Double = 0.0,
+    val category: String = "",
+    val ingredients: String = "",
+    val steps: String = "",
+    val imageUrl: String? = null   // Firebase Storage
 ) : Parcelable
+

@@ -6,6 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
+
+
 
 class RecipeAdapter(
     private val items: List<Recipe>,
@@ -17,12 +21,24 @@ class RecipeAdapter(
         private val tvRecipeDesc: TextView = view.findViewById(R.id.tvRecipeDesc)
         private val ivThumb: ImageView = view.findViewById(R.id.ivThumb)
 
+
         fun bind(r: Recipe) {
             tvRecipeTitle.text = r.title
             tvRecipeDesc.text = r.description
-            ivThumb.setImageResource(r.imageResId)
+
+            when {
+                // 🔥 Firebase image
+                !r.imageUrl.isNullOrEmpty() -> {
+                    Glide.with(ivThumb.context)
+                        .load(r.imageUrl)
+                        .placeholder(R.drawable.placeholder) // optional
+                        .into(ivThumb)
+                }
+
+            }
             itemView.setOnClickListener { onClick(r) }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

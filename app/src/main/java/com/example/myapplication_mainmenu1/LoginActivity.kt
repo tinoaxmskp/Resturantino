@@ -110,13 +110,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateToRole(role: String) {
         setLoading(false)
-        val target = if (role.equals("admin", ignoreCase = true)) {
-            AdminDashboardActivity::class.java
+        if (role == "admin") {
+            startActivity(Intent(this, AdminMainActivity::class.java))
         } else {
-            HomeActivity::class.java
+            startActivity(Intent(this, HomeActivity::class.java))
         }
-        startActivity(Intent(this, target))
         finish()
+
     }
 
     private fun setLoading(loading: Boolean) {

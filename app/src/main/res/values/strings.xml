@@ -42,4 +42,13 @@
     <string name="you_are_signed_in_as_an_administrator">You are signed in as an administrator.</string>
     <string name="admin_dashboard">Admin Dashboard</string>
     <string name="recipe_name">Recipe Name</string>
+    <string name="more_options">More options</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="title">Title</string>
+    <string name="short_description">Short description</string>
+    <string name="recipe_description" />
+    <string name="price">Price</string>
+    <string name="category">Category</string>
+    <string name="pick_image">Pick Image</string>
 </resources>

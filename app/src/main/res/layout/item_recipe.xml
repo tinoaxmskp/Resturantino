@@ -21,6 +21,7 @@
             android:id="@+id/ivThumb"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_menu_gallery"
             android:background="@color/surface_dark" />
@@ -37,7 +38,7 @@
                 android:id="@+id/tvRecipeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="@string/title"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
@@ -48,7 +49,7 @@
                 android:id="@+id/tvRecipeDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Short description"
+                android:text="@string/short_description"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary"
                 android:layout_marginTop="6dp"
@@ -61,8 +62,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@android:drawable/ic_menu_more"
-            android:tint="@color/text_secondary"
-            android:contentDescription="More options" />
+            android:contentDescription="@string/more_options"
+            app:tint="@color/text_secondary" />
 
     </LinearLayout>
 
