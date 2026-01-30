@@ -15,9 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:title="Admin Dashboard"
+            app:title="@string/admin_dashboard"
             app:menu="@menu/menu_logout"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@android:color/white"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:navigationIconTint="@color/white"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- CONTENT -->

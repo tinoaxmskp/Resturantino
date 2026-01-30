@@ -2,6 +2,7 @@ package com.example.myapplication_mainmenu1
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,9 +10,8 @@ import com.google.android.material.appbar.MaterialToolbar
 
 class MenuActivity : AppCompatActivity() {
 
-    private val cartViewModel: CartViewModel by lazy {
-        (application as RecipeApp).cartViewModel
-    }
+    private val cartViewModel: CartViewModel by viewModels()
+
 
     private lateinit var rvMenu: RecyclerView
     private lateinit var menuAdapter: MenuAdapter

@@ -64,7 +64,7 @@
 
             <!-- Center Content -->
             <LinearLayout
-                android:id="@+id/contentContainer"
+                android:id="@+id/btnAdminRecipes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

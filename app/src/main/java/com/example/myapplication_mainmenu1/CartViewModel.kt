@@ -90,4 +90,3 @@ class CartViewModel : ViewModel() {
         return _totalPrice.value ?: 0.0
     }
 }
-

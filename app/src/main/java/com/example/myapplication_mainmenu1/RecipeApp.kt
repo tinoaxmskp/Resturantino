@@ -6,27 +6,10 @@ class RecipeApp : Application() {
 
     var isAdmin: Boolean = false
 
-    // Shared ViewModel instance across activities
-    val cartViewModel: CartViewModel by lazy {
-        CartViewModel()
-    }
-    
-    companion object {
-        @Volatile
-        private var instance: RecipeApp? = null
-        
-        fun getInstance(): RecipeApp {
-            return instance ?: synchronized(this) {
-                instance ?: RecipeApp().also { instance = it }
-            }
-        }
-    }
-    
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        // Firebase is automatically initialized by google-services plugin
-        // No need to call FirebaseApp.initializeApp() manually
+        // Firebase auto-initialized
     }
 }
+
 

@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.Timestamp
 
 class CheckoutActivity : AppCompatActivity() {
 
@@ -31,9 +31,8 @@ class CheckoutActivity : AppCompatActivity() {
     private lateinit var cardSuccess: MaterialCardView
     private lateinit var tvSuccessMessage: TextView
 
-    private val cartViewModel: CartViewModel by lazy {
-        (application as RecipeApp).cartViewModel
-    }
+    private lateinit var cartViewModel: CartViewModel
+
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 

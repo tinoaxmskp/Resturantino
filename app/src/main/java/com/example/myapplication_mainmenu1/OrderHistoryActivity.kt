@@ -45,7 +45,10 @@ class OrderHistoryActivity : AppCompatActivity() {
         rvOrders.layoutManager = LinearLayoutManager(this)
         rvOrders.adapter = adapter
 
-        loadOrders()
+        window.decorView.post {
+            loadOrders()
+        }
+
     }
 
     private fun loadOrders() {

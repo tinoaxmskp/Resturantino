@@ -4,8 +4,11 @@ package com.example.myapplication_mainmenu1
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
@@ -15,9 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeActivity : AppCompatActivity() {
 
-    private val cartViewModel: CartViewModel by lazy {
-        (application as RecipeApp).cartViewModel
-    }
+    private val cartViewModel: CartViewModel by viewModels()
+
     private lateinit var tvCartBadge: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {

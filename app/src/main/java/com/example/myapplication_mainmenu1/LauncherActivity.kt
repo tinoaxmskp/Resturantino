@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.myapplication_mainmenu1.AdminMainActivity
 
 class LauncherActivity : AppCompatActivity() {
 

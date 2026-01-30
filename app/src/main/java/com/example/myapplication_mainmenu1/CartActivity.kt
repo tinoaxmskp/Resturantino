@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +18,9 @@ class CartActivity : AppCompatActivity() {
     private lateinit var rvCart: RecyclerView
     private lateinit var tvTotal: TextView
     private lateinit var btnCheckout: MaterialButton
-    
-    private val cartViewModel: CartViewModel by lazy {
-        (application as RecipeApp).cartViewModel
-    }
+
+    private val cartViewModel: CartViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)  

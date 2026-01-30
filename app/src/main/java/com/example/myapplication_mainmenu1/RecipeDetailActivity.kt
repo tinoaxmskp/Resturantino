@@ -11,7 +11,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-
 class RecipeDetailActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MaterialToolbar
@@ -43,7 +42,8 @@ class RecipeDetailActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { finish() }
 
         recipeId = intent.getStringExtra("recipeId") ?: return
-        isAdmin = (application as RecipeApp).isAdmin
+        isAdmin = intent.getBooleanExtra("isAdmin", false)
+
 
         loadRecipe()
 
