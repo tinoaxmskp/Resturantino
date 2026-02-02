@@ -5,4 +5,6 @@
     <item name="ivMore" type="id" />
     <item name="ivFav" type="id" />
     <item name="btnAdminRecipes" type="id" />
+    <item name="etRecipeIngredients" type="id" />
+    <item name="tvMenuItemName" type="id" />
 </resources>

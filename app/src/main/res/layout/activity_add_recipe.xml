@@ -1,78 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- TOP BAR -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/etRecipeName"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="@string/add_recipe"
+            app:titleTextColor="@android:color/white"
+            app:menu="@menu/menu_logout"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:navigationIconTint="@android:color/white"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- SCROLLABLE CONTENT -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/recipe_name"
-        />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etRecipeDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/recipe_description"
-            android:layout_marginTop="8dp" />
+            <EditText
+                android:id="@+id/etRecipeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/recipe_name"/>
 
-        <EditText
-            android:id="@+id/etRecipePrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/price"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="8dp" />
+            <EditText
+                android:id="@+id/etRecipeDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/recipe_description"/>
+            <EditText
+                android:id="@+id/etRecipeIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/ingredients"
+                android:minLines="3" />
 
-        <EditText
-            android:id="@+id/etRecipeCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/category"
-            android:layout_marginTop="8dp" />
+            <EditText
+                android:id="@+id/etRecipePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/price"
+                android:inputType="numberDecimal" />
 
-        <ImageView
-            android:id="@+id/ivRecipeImage"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:contentDescription="@string/recipe_image"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="12dp"
-            android:background="#DDDDDD" />
+            <EditText
+                android:id="@+id/etRecipeCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/category" />
 
-        <Button
-            android:id="@+id/btnPickImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pick_image"
-            android:layout_marginTop="8dp" />
 
-        <Button
-            android:id="@+id/btnSaveRecipe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save_recipe"
-            android:layout_marginTop="16dp" />
+            <Button
+                android:id="@+id/btnAddRecipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/add_recipe"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

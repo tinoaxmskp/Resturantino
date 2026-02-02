@@ -29,6 +29,19 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <TextView
+            android:id="@+id/tvEmptyCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your cart is empty"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="gone" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCart"
             android:layout_width="match_parent"
@@ -50,48 +63,15 @@
             app:cardElevation="4dp"
             app:cardBackgroundColor="@color/surface">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/total"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_primary" />
-
-                    <TextView
-                        android:id="@+id/tvTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$0.00"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary" />
-                </LinearLayout>
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCheckout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Checkout"
+                    android:text="@string/checkout"
                     android:textSize="16sp"
                     android:padding="16dp"
                     app:cornerRadius="8dp" />
-
-            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 

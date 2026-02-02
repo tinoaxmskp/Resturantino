@@ -11,8 +11,9 @@ class AdminMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_main)
 
-        val btnRecipes = findViewById<android.view.View>(R.id.btnAdminRecipes)
-        val btnLogout = findViewById<android.view.View>(R.id.btnLogout)
+        val btnRecipes = findViewById<android.view.View>(R.id.cardAdminRecipes)
+        val btnLogout = findViewById<android.view.View>(R.id.cardAdminLogout)
+
 
         // Go to Admin Dashboard (recipe list)
         btnRecipes.setOnClickListener {

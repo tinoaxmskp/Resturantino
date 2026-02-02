@@ -32,8 +32,8 @@ class AdminRecipeAdapter(
     override fun getItemCount(): Int = recipes.size
 
     class VH(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle: TextView = view.findViewById(R.id.tvRecipeTitle)
-        val tvDesc: TextView = view.findViewById(R.id.tvRecipeDesc)
+        val tvTitle: TextView = view.findViewById(R.id.tvRecipeName)
+        val tvDesc: TextView = view.findViewById(R.id.tvRecipePrice)
         val btnEdit: Button = view.findViewById(R.id.btnEdit)
         val btnDelete: Button = view.findViewById(R.id.btnDelete)
     }

@@ -5,19 +5,20 @@ import com.google.firebase.firestore.DocumentSnapshot
 
 data class Order(
     val orderId: String = "",
-    val userId: String,
-    val items: List<OrderItem>,
-    val totalPrice: Double,
-    val itemCount: Int,
-    val paymentMethod: String,
+    val userId: String = "",
+    val userEmail: String = "",
+    val items: List<OrderItem> = emptyList(),
+    val totalPrice: Double = 0.0,
+    val itemCount: Int = 0,
+    val paymentMethod: String = "",
     val orderDate: Timestamp = Timestamp.now(),
     val status: String = "Pending"
 ) {
-    constructor() : this("", "", emptyList(), 0.0, 0, "", Timestamp.now(), "Pending")
 
     fun toMap(): Map<String, Any> {
         return mapOf(
             "userId" to userId,
+            "userEmail" to userEmail,
             "items" to items.map { it.toMap() },
             "totalPrice" to totalPrice,
             "itemCount" to itemCount,
@@ -31,14 +32,12 @@ data class Order(
         fun fromDocument(document: DocumentSnapshot): Order? {
             return try {
                 val rawItems = document.get("items") as? List<Map<String, Any>> ?: emptyList()
-
-                val items = rawItems.mapNotNull { map ->
-                    OrderItem.fromMap(map)
-                }
+                val items = rawItems.mapNotNull { OrderItem.fromMap(it) }
 
                 Order(
                     orderId = document.id,
                     userId = document.getString("userId") ?: "",
+                    userEmail = document.getString("userEmail") ?: "",
                     items = items,
                     totalPrice = document.getDouble("totalPrice") ?: 0.0,
                     itemCount = (document.getLong("itemCount") ?: 0).toInt(),
@@ -46,7 +45,7 @@ data class Order(
                     orderDate = document.getTimestamp("orderDate") ?: Timestamp.now(),
                     status = document.getString("status") ?: "Pending"
                 )
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
         }
@@ -57,30 +56,27 @@ data class OrderItem(
     val id: String,
     val name: String,
     val price: Double,
-    val quantity: Int,
-    val imageResId: Int = 0
+    val quantity: Int
 ) {
     fun toMap(): Map<String, Any> {
         return mapOf(
             "id" to id,
             "name" to name,
             "price" to price,
-            "quantity" to quantity,
-            "imageResId" to imageResId
+            "quantity" to quantity
         )
     }
 
     companion object {
-        fun fromMap(map: Map<String, Any>): OrderItem? {
+        fun fromMap(map: Map<*, *>): OrderItem? {
             return try {
                 OrderItem(
                     id = map["id"] as? String ?: "",
                     name = map["name"] as? String ?: "",
                     price = (map["price"] as? Number)?.toDouble() ?: 0.0,
-                    quantity = (map["quantity"] as? Number)?.toInt() ?: 0,
-                    imageResId = (map["imageResId"] as? Number)?.toInt() ?: 0
+                    quantity = (map["quantity"] as? Number)?.toInt() ?: 0
                 )
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
         }

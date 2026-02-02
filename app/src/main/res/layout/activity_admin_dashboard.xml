@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="@string/admin_dashboard"
+            app:title="All Current Recipes"
             app:menu="@menu/menu_logout"
             app:titleTextColor="@android:color/white"
             app:navigationIcon="?attr/homeAsUpIndicator"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
-        android:contentDescription="Add Recipe"
+        android:contentDescription="@string/add_recipe"
         app:layout_anchor="@id/recyclerViewAdminRecipes"
         app:layout_anchorGravity="bottom|end"/>
 

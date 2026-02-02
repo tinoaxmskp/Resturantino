@@ -5,12 +5,16 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MenuActivity : AppCompatActivity() {
 
-    private val cartViewModel: CartViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels {
+        CartViewModelFactory((application as RecipeApp).cartRepository)
+    }
 
 
     private lateinit var rvMenu: RecyclerView
@@ -21,116 +25,47 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        // Toolbar
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { finish() }
 
-        // RecyclerView
         rvMenu = findViewById(R.id.rvMenu)
-        menuAdapter = MenuAdapter(menuItems) { menuItem ->
-            addToCart(menuItem)
+
+        menuAdapter = MenuAdapter(menuItems) {
+            cartViewModel.addToCart(it)
+            Toast.makeText(this, "${it.name} added to cart", Toast.LENGTH_SHORT).show()
         }
 
-        // GRID layout (2 columns)
-        rvMenu.layoutManager = GridLayoutManager(this, 2)
+        rvMenu.layoutManager = LinearLayoutManager(this)
+
         rvMenu.adapter = menuAdapter
 
         loadMenuItems()
     }
 
-    // Static menu data (UI ONLY, temporary)
     private fun loadMenuItems() {
-        menuItems.clear()
+        FirebaseFirestore.getInstance()
+            .collection("recipes")
+            .whereEqualTo("isActive", true)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                menuItems.clear()
 
-        menuItems.add(
-            MenuItem(
-                id = "m1",
-                name = "Classic Burger",
-                description = "Juicy beef burger with cheese and lettuce",
-                price = 42.0,   // zł
-                imageResId = android.R.drawable.ic_menu_gallery,
-                category = "Main"
-            )
-        )
+                for (doc in snapshot.documents) {
+                    val item = MenuItem(
+                        id = doc.id,
+                        name = doc.getString("name") ?: "",
+                        price = doc.getDouble("price") ?: 0.0,
+                        category = doc.getString("category") ?: "General"
+                    )
+                    menuItems.add(item)
+                }
 
-        menuItems.add(
-            MenuItem(
-                id = "m2",
-                name = "Pepperoni Pizza",
-                description = "Stone baked pizza with pepperoni",
-                price = 45.0,   // zł
-                imageResId = android.R.drawable.ic_menu_camera,
-                category = "Main"
-            )
-        )
-
-        menuItems.add(
-            MenuItem(
-                id = "m3",
-                name = "Grilled Chicken",
-                description = "Grilled chicken with herbs",
-                price = 48.0,   // zł
-                imageResId = android.R.drawable.ic_menu_gallery,
-                category = "Main"
-            )
-        )
-
-        menuItems.add(
-            MenuItem(
-                id = "m4",
-                name = "Pasta Carbonara",
-                description = "Creamy pasta with bacon",
-                price = 40.0,   // zł
-                imageResId = android.R.drawable.ic_menu_camera,
-                category = "Main"
-            )
-        )
-
-        menuItems.add(
-            MenuItem(
-                id = "m5",
-                name = "Chocolate Cake",
-                description = "Rich chocolate dessert",
-                price = 22.0,   // zł
-                imageResId = android.R.drawable.ic_menu_gallery,
-                category = "Dessert"
-            )
-        )
-
-        menuItems.add(
-            MenuItem(
-                id = "m6",
-                name = "Coffee",
-                description = "Fresh brewed coffee",
-                price = 10.0,   // zł
-                imageResId = android.R.drawable.ic_menu_camera,
-                category = "Drink"
-            )
-        )
-
-        menuAdapter.notifyDataSetChanged()
+                menuAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to load menu", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun addToCart(menuItem: MenuItem) {
-        val isNewItem = cartViewModel.addToCart(menuItem)
-
-        if (isNewItem) {
-            Toast.makeText(
-                this,
-                "${menuItem.name} added to cart",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            val currentItems = cartViewModel.cartItems.value ?: mutableListOf()
-            val item = currentItems.find { it.id == menuItem.id }
-            val quantity = item?.quantity ?: 1
-            Toast.makeText(
-                this,
-                "${menuItem.name} quantity increased to $quantity",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 }

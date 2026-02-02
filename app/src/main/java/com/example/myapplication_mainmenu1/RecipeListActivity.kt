@@ -2,11 +2,14 @@ package com.example.myapplication_mainmenu1
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class RecipeListActivity : AppCompatActivity() {
 
@@ -29,65 +32,44 @@ class RecipeListActivity : AppCompatActivity() {
 
         adapter = RecipeAdapter(recipes) { recipe ->
             val i = Intent(this, RecipeDetailActivity::class.java)
-            i.putExtra("recipe", recipe)
+            i.putExtra("recipe", recipe)   // ✅ sample data path
             startActivity(i)
+        }
+        fun loadRecipes() {
+            FirebaseFirestore.getInstance()
+                .collection("recipes")
+                .whereEqualTo("isActive", true)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    recipes.clear()
+
+                    for (doc in snapshot.documents) {
+                        val recipe = Recipe(
+                            id = doc.id,
+                            title = doc.getString("name") ?: continue,
+                            description = doc.getString("description") ?: "",
+                            ingredients = doc.getString("ingredients") ?: "",
+                            price = doc.getDouble("price") ?: 0.0,
+                            category = doc.getString("category") ?: ""
+                        )
+                        recipes.add(recipe)
+                    }
+
+                    adapter.notifyDataSetChanged()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Failed to load recipes", Toast.LENGTH_SHORT).show()
+                }
         }
 
         rvRecipes.layoutManager = LinearLayoutManager(this)
         rvRecipes.adapter = adapter
 
+        loadRecipes()
+
         fabFavorites.setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
         }
-
-        loadSampleData()
     }
 
-
-    private fun loadSampleData() {
-        recipes.clear()
-
-        recipes.add(
-            Recipe(
-                id = "r1",
-                title = "Spaghetti Carbonara",
-                description = "Classic Italian pasta",
-                ingredients = listOf(
-                    "Spaghetti",
-                    "Eggs",
-                    "Pancetta",
-                    "Parmesan",
-                    "Pepper"
-                ).joinToString("\n• ", prefix = "• "),
-                steps = listOf(
-                    "Boil pasta",
-                    "Cook pancetta",
-                    "Mix eggs and cheese",
-                    "Combine everything"
-                ).joinToString("\n")
-            )
-        )
-
-        recipes.add(
-            Recipe(
-                id = "r2",
-                title = "Greek Salad",
-                description = "Fresh and simple",
-                ingredients = listOf(
-                    "Tomatoes",
-                    "Cucumber",
-                    "Feta",
-                    "Olives",
-                    "Olive oil"
-                ).joinToString("\n• ", prefix = "• "),
-                steps = listOf(
-                    "Chop vegetables",
-                    "Mix together",
-                    "Add feta and olive oil"
-                ).joinToString("\n")
-            )
-        )
-
-        adapter.notifyDataSetChanged()
-    }
 }

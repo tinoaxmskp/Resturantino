@@ -6,19 +6,19 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class HomeActivity : AppCompatActivity() {
 
-    private val cartViewModel: CartViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels {
+        CartViewModelFactory((application as RecipeApp).cartRepository)
+    }
+
 
     private lateinit var tvCartBadge: TextView
 
@@ -64,10 +64,6 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-        FirebaseFirestore.getInstance()
-            .collection("debug")
-            .add(mapOf("time" to System.currentTimeMillis()))
 
         // Update badge on resume to reflect current cart state
         updateCartBadge(cartViewModel.getItemCount())

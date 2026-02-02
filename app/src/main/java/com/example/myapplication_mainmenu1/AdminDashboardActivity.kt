@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
-import com.google.protobuf.LazyStringArrayList.emptyList
 
 
 class AdminDashboardActivity : AppCompatActivity() {
@@ -64,22 +62,14 @@ class AdminDashboardActivity : AppCompatActivity() {
                 recipes.clear()
 
                 for (doc in snapshot.documents) {
-
-                    doc.get("ingredients") as? List<*> ?: emptyList()
-
-                    doc.get("steps") as? List<*> ?: emptyList()
-
                     val recipe = Recipe(
                         id = doc.id,
                         title = doc.getString("name") ?: "",
                         description = doc.getString("description") ?: "",
                         price = doc.getDouble("price") ?: 0.0,
                         category = doc.getString("category") ?: "",
-                        ingredients = doc.getString("ingredients") ?: "",
-                        steps = doc.getString("steps") ?: "",
-                        imageUrl = doc.getString("imageUrl")
+                        ingredients = doc.getString("ingredients") ?: ""
                     )
-
                     recipes.add(recipe)
                 }
 
@@ -103,22 +93,11 @@ class AdminDashboardActivity : AppCompatActivity() {
     }
 
     private fun deleteRecipe(recipe: Recipe) {
-
-        // 1️⃣ Delete Firestore document first
         FirebaseFirestore.getInstance()
             .collection("recipes")
             .document(recipe.id)
             .delete()
             .addOnSuccessListener {
-
-                // 2️⃣ Only delete from Firebase Storage IF imageUrl exists
-                val imageUrl = recipe.imageUrl
-                if (!imageUrl.isNullOrEmpty()) {
-                    FirebaseStorage.getInstance()
-                        .getReferenceFromUrl(imageUrl)
-                        .delete()
-                }
-
                 Toast.makeText(this, "Recipe deleted", Toast.LENGTH_SHORT).show()
                 loadRecipes()
             }

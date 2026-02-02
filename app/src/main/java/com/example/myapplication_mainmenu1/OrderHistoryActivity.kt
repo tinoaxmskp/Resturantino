@@ -13,12 +13,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
+
 class OrderHistoryActivity : AppCompatActivity() {
 
     private lateinit var rvOrders: RecyclerView
     private lateinit var tvEmpty: TextView
 
     private val orders = mutableListOf<Order>()
+    private val user = FirebaseAuth.getInstance().currentUser
     private lateinit var adapter: OrderHistoryAdapter
 
     private val firestore = FirebaseFirestore.getInstance()
@@ -36,6 +38,7 @@ class OrderHistoryActivity : AppCompatActivity() {
         rvOrders = findViewById(R.id.rvOrders)
         tvEmpty = findViewById(R.id.tvEmpty)
 
+
         adapter = OrderHistoryAdapter(orders) { order ->
             val intent = Intent(this, OrderDetailsActivity::class.java)
             intent.putExtra("orderId", order.orderId)
@@ -52,7 +55,9 @@ class OrderHistoryActivity : AppCompatActivity() {
     }
 
     private fun loadOrders() {
-        val user = auth.currentUser
+        firestore.collection("orders")
+            .whereEqualTo("userId", auth.currentUser?.uid)
+
         if (user == null) {
             Toast.makeText(this, "Please log in to view orders", Toast.LENGTH_LONG).show()
             finish()
